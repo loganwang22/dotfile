@@ -9,7 +9,8 @@ parse_git_branch() {
 setopt prompt_subst
 
 # Config for prompt. PS1 synonym.
-prompt='%F{magenta}local%F{green}%~%F{yellow}$(parse_git_branch)%F{white}%# '
+# %f at the end resets the color, so typed commands and their output use the default color.
+prompt='%F{magenta}local%F{green}%~%F{yellow}$(parse_git_branch)%F{white}%#%f '
 
 # Alias
 alias ll="ls -alh"

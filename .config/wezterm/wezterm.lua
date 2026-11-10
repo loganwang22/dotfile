@@ -28,6 +28,17 @@ config.font_dirs = { '/System/Applications/Utilities/Terminal.app/Contents/Resou
 config.font = wezterm.font 'SF Mono'
 config.font_size = 18
 
+-- Faint text (SGR 2, e.g. Claude Code suggestions). WezTerm only switches to a lighter
+-- font weight, so faint text looks almost as bright as normal text. Terminal.app draws it
+-- at half strength instead. Match that: normal weight, in a gray halfway between the
+-- foreground (#e6e6e6) and background (#212734) colors.
+-- NOTE: All faint text gets this gray, also faint text that has its own color.
+local faint = '#84878d'
+config.font_rules = {
+  { intensity = 'Half', italic = false, font = wezterm.font('SF Mono', { foreground = faint }) },
+  { intensity = 'Half', italic = true, font = wezterm.font('SF Mono', { style = 'Italic', foreground = faint }) },
+}
+
 -- Colors ---------------------------------------------------------------------
 
 -- Taken from the Terminal.app "Clear Dark" profile, converted to sRGB.
