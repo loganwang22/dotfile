@@ -89,10 +89,22 @@ config.audible_bell = 'Disabled'
 config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = false
 
--- Option+Left/Right jump by word, like Terminal.app (which sends Alt+b / Alt+f).
+-- Cmd+K clears the screen and scrollback, like Terminal.app.
+-- Does nothing while herdr is running: clearing would blank herdr's UI and
+-- send Ctrl+L into the focused pane (e.g. Claude Code).
+local function clear_like_terminal_app(window, pane)
+  local process = (pane:get_foreground_process_name() or ''):match '[^/]*$'
+  if process ~= 'herdr' then
+    window:perform_action(wezterm.action.ClearScrollback 'ScrollbackAndViewport', pane)
+    window:perform_action(wezterm.action.SendKey { key = 'L', mods = 'CTRL' }, pane)
+  end
+end
+
 config.keys = {
+  -- Option+Left/Right jump by word, like Terminal.app (which sends Alt+b / Alt+f).
   { key = 'LeftArrow', mods = 'OPT', action = wezterm.action.SendKey { key = 'b', mods = 'ALT' } },
   { key = 'RightArrow', mods = 'OPT', action = wezterm.action.SendKey { key = 'f', mods = 'ALT' } },
+  { key = 'k', mods = 'SUPER', action = wezterm.action_callback(clear_like_terminal_app) },
 }
 
 return config
