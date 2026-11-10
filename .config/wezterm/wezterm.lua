@@ -1,4 +1,14 @@
 -- WezTerm config: matches the Terminal.app "Clear Dark" profile, with the kitty protocols enabled.
+--
+-- Setup on a new Mac:
+--   brew install --cask wezterm
+--   git clone https://github.com/loganwang22/dotfile.git ~/Projects/dotfile
+--   mkdir -p ~/.config
+--   ln -s ~/Projects/dotfile/.config/wezterm ~/.config/wezterm
+--   Then quit WezTerm (Cmd+Q) and reopen it.
+--
+-- If ~/.config/wezterm already exists, move it out of the way before the ln step.
+-- macOS only: SF Mono is loaded from inside Terminal.app (see font_dirs below).
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
